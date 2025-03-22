@@ -3,9 +3,6 @@ using BusLocationsApp.Models;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Text;
-using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BusLocationsApp.Services.Concretes
 {

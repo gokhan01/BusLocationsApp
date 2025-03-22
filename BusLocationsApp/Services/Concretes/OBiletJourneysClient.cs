@@ -3,7 +3,6 @@ using BusLocationsApp.Models;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 
 namespace BusLocationsApp.Services.Concretes
 {

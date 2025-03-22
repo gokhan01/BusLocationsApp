@@ -18,7 +18,7 @@ namespace BusLocationsApp.Services.Concretes
             BaseRequest request = new()
             {
                 data = search,
-                date = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"),
+                date = DateTime.Today.ToString("yyyy-MM-dd"),//ekrandan mı alınacak incelenecek
                 deviceSession = new DeviceSession
                 {
                     deviceId = session.DeviceId,
