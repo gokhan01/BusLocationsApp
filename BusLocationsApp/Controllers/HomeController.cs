@@ -18,7 +18,7 @@ namespace BusLocationsApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var (sessionId, deviceId) = await _oBiletSessionProvider.GetOrCreateSessionAsync();
+            //var (sessionId, deviceId) = await _oBiletSessionProvider.GetOrCreateSessionAsync();
 
 
             return View();
