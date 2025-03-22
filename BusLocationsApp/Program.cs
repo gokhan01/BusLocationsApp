@@ -63,6 +63,7 @@ builder.Services.AddScoped<IOBiletSessionClient, OBiletSessionClient>();
 builder.Services.AddScoped<IOBiletSessionManager, OBiletSessionManager>();
 builder.Services.AddScoped<IOBiletSessionProvider, OBiletSessionProvider>();
 builder.Services.AddScoped<IOBiletBusLocationsClient, OBiletBusLocationsClient>();
+builder.Services.AddScoped<IOBiletJourneysClient, OBiletJourneysClient>();
 
 
 var app = builder.Build();

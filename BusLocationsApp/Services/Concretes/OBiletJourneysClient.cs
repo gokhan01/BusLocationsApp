@@ -3,22 +3,23 @@ using BusLocationsApp.Models;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace BusLocationsApp.Services.Concretes
 {
-    public class OBiletBusLocationsClient(GenericHttpClient genericHttpClient, IOBiletSessionProvider oBiletSessionProvider, IOptions<OBiletDistribusionApiOptions> options) : IOBiletBusLocationsClient
+    public class OBiletJourneysClient(GenericHttpClient genericHttpClient, IOBiletSessionProvider oBiletSessionProvider, IOptions<OBiletDistribusionApiOptions> options) : IOBiletJourneysClient
     {
         private readonly OBiletDistribusionApiOptions obiletOptions = options.Value;
 
-        public async Task<BusLocationsResponse> GetLocations(string? search = null)
+        public async Task<JourneysResponse> GetJourneys(JourneysRequest journeysRequest)
         {
             var session = await oBiletSessionProvider.GetOrCreateSessionAsync();
 
             //todo: baserequest için ortak model yaratma uygulanabilir.
             BaseRequest request = new()
             {
-                data = search,
-                date = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"),
+                data = journeysRequest,
+                date = DateTime.Today.ToString("yyyy-MM-dd"),
                 deviceSession = new DeviceSession
                 {
                     deviceId = session.DeviceId,
@@ -27,7 +28,7 @@ namespace BusLocationsApp.Services.Concretes
                 language = "tr-TR"
             };
 
-            var result = await genericHttpClient.PostAsync<BusLocationsResponse, BaseRequest>(obiletOptions.ClientName, obiletOptions.BuslocationsUrl, request);
+            var result = await genericHttpClient.PostAsync<JourneysResponse, BaseRequest>(obiletOptions.ClientName, obiletOptions.JourneysUrl, request);
 
             return result!;
         }

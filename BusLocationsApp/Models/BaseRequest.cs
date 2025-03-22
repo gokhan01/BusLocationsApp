@@ -2,9 +2,9 @@
 {
     public class BaseRequest
     {
-        public string? data { get; set; }
+        public object? data { get; set; }
         public DeviceSession deviceSession { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
         public string language { get; set; }
     }
 
