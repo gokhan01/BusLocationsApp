@@ -3,6 +3,7 @@ using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Concretes;
 using BusLocationsApp.Services.Interfaces;
 using Microsoft.Net.Http.Headers;
+using System.Globalization;
 using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,20 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromDays(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+});
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("tr-TR")
+    };
+
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(culture: "tr-TR", uiCulture: "tr-TR");
+    //This is the culture the app supports for formatting numbers, dates, etc.
+    options.SupportedCultures = supportedCultures;
+    //This is the culture the app supports for UI strings
+    options.SupportedUICultures = supportedCultures;
 });
 
 //Options Pattern
