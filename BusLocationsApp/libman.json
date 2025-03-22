@@ -1,0 +1,10 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "datepicker@1.0.10",
+      "destination": "wwwroot/lib/datepicker/"
+    }
+  ]
+}

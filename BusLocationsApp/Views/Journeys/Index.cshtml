@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+@model IEnumerable<JourneysViewModel>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bilet Arama</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/datepicker/datepicker.min.css" rel="stylesheet" />
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .centered-div {
+            width: 320pt; /* Div genişliği */
+            background-color: #F3F3F3;
+            text-align: center;
+            /* Ortalama için gerekli stil */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card {
+            background-color: #F3F3F3;
+        }
+
+        .card-header {
+            background-color: #2F4EB4 !important;
+        }
+
+        .text-primary {
+            color: #2F4EB4 !important;
+        }
+
+        .btn-primary {
+            background-color: #2F4EB4 !important;
+        }
+
+        .time-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2F4EB4;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .time {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2F4EB4;
+        }
+
+        .arrow {
+            font-size: 16px;
+            color: #888;
+        }
+
+        .card-body{
+            overflow-y: auto;
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="centered-div">
+        <div class="card-header text-light text-center py-3">
+            <strong>İstanbul Avrupa - Ankara</strong>
+            <p class="mb-0">25 Ekim Perşembe</p>
+        </div>
+        <div class="card-body">
+            @foreach (var item in Model)
+            {
+                <div class="card p-2 m-2">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="text-center">
+                                <div class="time-box">
+                                    <div>
+                                        <div class="label">Kalkış</div>
+                                        <div class="time">@item.Departure</div>
+                                    </div>
+                                    <div class="arrow">→</div>
+                                    <div>
+                                        <div class="label">Varış</div>
+                                        <div class="time">@item.Arrival</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex flex-row-reverse">
+                            <button class="btn btn-sm btn-danger float-right">@item.OriginalPrice @item.Currency</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <span>@item.Origin - @item.Destination</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -20,18 +20,18 @@ namespace BusLocationsApp.Controllers
             _oBiletJourneysClient = oBiletJourneysClient;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             //var (sessionId, deviceId) = await _oBiletSessionProvider.GetOrCreateSessionAsync();
 
-            var res = await _oBiletBusLocationsClient.GetLocations();
+            //var res = await _oBiletBusLocationsClient.GetLocations();
 
-            var journeys = await _oBiletJourneysClient.GetJourneys(new JourneysRequest
-            {
-                departureDate = DateTime.Today.ToString("yyyy-MM-dd"),
-                destinationId = 356,
-                originId = 349
-            });
+            //var journeys = await _oBiletJourneysClient.GetJourneys(new JourneysRequest
+            //{
+            //    departureDate = DateTime.Today.ToString("yyyy-MM-dd"),
+            //    destinationId = 356,
+            //    originId = 349
+            //});
 
             return View();
         }
