@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace BusLocationsApp.Models
+﻿namespace BusLocationsApp.Models
 {
     public class SessionResponse
     {
@@ -10,28 +8,24 @@ namespace BusLocationsApp.Models
         public object userMessage { get; set; }
         public object apiRequestId { get; set; }
         public string controller { get; set; }
-        public object clientrequestid { get; set; }
-        public object webcorrelationid { get; set; }
-        public string correlationid { get; set; }
+        public object clientRequestId { get; set; }
+        public object webCorrelationId { get; set; }
+        public string correlationId { get; set; }
         public object parameters { get; set; }
     }
 
-    public class Data
+    public class Data : DeviceSession
     {
-        //[JsonPropertyName("session-id")]
-        public string sessionId { get; set; }
-        //[JsonPropertyName("device-id")]
-        public string deviceId { get; set; }
         public object affiliate { get; set; }
         //[JsonPropertyName("device-type")]
-        public int devicetype { get; set; }
+        public int deviceType { get; set; }
         public object device { get; set; }
         //[JsonPropertyName("ip-country")]
-        public string ipcountry { get; set; }
+        public string ipCountry { get; set; }
         //[JsonPropertyName("clean-session-id")]
-        public int cleansessionid { get; set; }
+        public int cleanSessionId { get; set; }
         //[JsonPropertyName("clean-device-id")]
-        public int cleandeviceid { get; set; }
-        public object ipaddress { get; set; }
+        public int cleanDeviceId { get; set; }
+        public object ipAddress { get; set; }
     }
 }

@@ -10,16 +10,19 @@ namespace BusLocationsApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IOBiletSessionProvider _oBiletSessionProvider;
-        public HomeController(ILogger<HomeController> logger, IOBiletSessionProvider oBiletSessionProvider)
+        private readonly IOBiletBusLocationsClient _oBiletBusLocationsClient;
+        public HomeController(ILogger<HomeController> logger, IOBiletSessionProvider oBiletSessionProvider, IOBiletBusLocationsClient oBiletBusLocationsClient)
         {
             _logger = logger;
             _oBiletSessionProvider = oBiletSessionProvider;
+            _oBiletBusLocationsClient = oBiletBusLocationsClient;
         }
 
         public async Task<IActionResult> Index()
         {
             //var (sessionId, deviceId) = await _oBiletSessionProvider.GetOrCreateSessionAsync();
 
+            var res = await _oBiletBusLocationsClient.GetLocations();
 
             return View();
         }

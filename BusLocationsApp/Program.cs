@@ -1,3 +1,4 @@
+using BusLocationsApp.Helpers;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Concretes;
 using BusLocationsApp.Services.Interfaces;
@@ -42,9 +43,12 @@ builder.Services.AddHttpClient(obiletOptions.ClientName, httpClient =>
     httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, obiletOptions.Authorization);
 });
 
+builder.Services.AddScoped<GenericHttpClient>();
 builder.Services.AddScoped<IOBiletSessionClient, OBiletSessionClient>();
 builder.Services.AddScoped<IOBiletSessionManager, OBiletSessionManager>();
 builder.Services.AddScoped<IOBiletSessionProvider, OBiletSessionProvider>();
+builder.Services.AddScoped<IOBiletBusLocationsClient, OBiletBusLocationsClient>();
+
 
 var app = builder.Build();
 
