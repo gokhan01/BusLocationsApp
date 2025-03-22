@@ -16,7 +16,7 @@ namespace BusLocationsApp.Services.Concretes
                     type = 7,
                     application = new Models.ApplicationModel
                     {
-                        EquipmentId = "distribusion",
+                        equipmentId = "distribusion",
                         version = "1.0.0.0"
                     },
                     browser = new Models.Browser
@@ -26,7 +26,7 @@ namespace BusLocationsApp.Services.Concretes
                     },
                     connection = new Models.Connection
                     {
-                        IpAddress = "165.114.41.21",
+                        ipAddress = "165.114.41.21",
                         port = "8080"
                     }
                 });

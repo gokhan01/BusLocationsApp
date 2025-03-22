@@ -13,7 +13,7 @@ namespace BusLocationsApp.Models
     public class Connection
     {
         //[JsonPropertyName("ip-address")]
-        public string IpAddress { get; set; }
+        public string ipAddress { get; set; }
         public string port { get; set; }
     }
 
@@ -21,7 +21,7 @@ namespace BusLocationsApp.Models
     {
         public string version { get; set; }
         //[JsonPropertyName("equipment-id")]
-        public string EquipmentId { get; set; }
+        public string equipmentId { get; set; }
     }
 
     public class Browser
