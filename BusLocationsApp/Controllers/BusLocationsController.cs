@@ -1,7 +1,6 @@
 ﻿using BusLocationsApp.Models;
 using BusLocationsApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BusLocationsApp.Controllers
 {
@@ -16,7 +15,7 @@ namespace BusLocationsApp.Controllers
 
         public async Task<IActionResult> Get(string? term = null)
         {
-            var result = await _oBiletBusLocationsClient.GetLocations(term);
+            var result = await _oBiletBusLocationsClient.GetLocationsAsync(term);
 
             //Select2ViewModel viewModel = new()
             //{

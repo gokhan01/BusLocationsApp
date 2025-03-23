@@ -26,8 +26,8 @@
         public int availableseats { get; set; }
         public Journey journey { get; set; }
         public Feature[] features { get; set; }
-        public string originlocation { get; set; }
-        public string destinationlocation { get; set; }
+        public string originLocation { get; set; }
+        public string destinationLocation { get; set; }
         public bool isactive { get; set; }
         public int originlocationid { get; set; }
         public int destinationlocationid { get; set; }

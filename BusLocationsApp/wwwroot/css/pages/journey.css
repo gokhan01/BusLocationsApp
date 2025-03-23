@@ -1,0 +1,78 @@
+﻿body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.centered-div {
+    width: 320pt; /* Div genişliği */
+    background-color: #F3F3F3;
+    text-align: center;
+    /* Ortalama için gerekli stil */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    background-color: #F3F3F3;
+}
+
+.card-header {
+    background-color: #2F4EB4 !important;
+}
+
+.text-primary {
+    color: #2F4EB4 !important;
+}
+
+.btn-primary {
+    background-color: #2F4EB4 !important;
+}
+
+.time-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2F4EB4;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.time {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2F4EB4;
+}
+
+.arrow {
+    font-size: 16px;
+    color: #888;
+}
+
+.card-body {
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.bi-arrow-left {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    font-size: 20px;
+}
+
+.arrow-href {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

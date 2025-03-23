@@ -8,85 +8,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bilet Arama</title>
+    <title>Bileti Bul</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="~/lib/datepicker/datepicker.min.css" rel="stylesheet" />
-    <style>
-        .wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            width: 320pt;
-        }
-
-        .card-header {
-            background-color: #2F4EB4;
-            height: 40pt;
-        }
-
-        .card-body {
-            background-color: #F8F8F8;
-        }
-
-        .text-primary {
-            color: #2F4EB4 !important;
-        }
-
-        .btn-primary {
-            background-color: #2F4EB4 !important;
-        }
-
-        /* .inline-card {
-                                    background-color: white;
-                                    width: auto;
-                                    height: 64pt;
-                                    padding: 5pt;
-                                    display: flex !important;
-                                    align-items: center !important;
-                                } */
-
-        .inline-card {
-            background-color: white;
-            width: auto;
-            height: 64pt;
-            padding: 5pt;
-        }
-
-        /* .select2-container--default .select2-selection--single {
-                    border: none;
-                } */
-
-        /* Select2 border'ını kaldır */
-        .select2-container .select2-selection--single {
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-            /* Select2 arrow (ok) ikonunu kaldır */
-            .select2-container .select2-selection--single .select2-selection__arrow {
-                display: none;
-            }
-
-        /* Select2 dropdown arrow'ı kaldır */
-        .select2-container--default .select2-selection--single .select2-selection__arrow b {
-            display: none;
-        }
-
-        /* Input yazısını sola yasla */
-        .select2-container .select2-selection--single .select2-selection__rendered {
-            text-align: left !important;
-            padding-left: 15px !important; /* İsteğe bağlı: Yazının sol boşluğunu ayarlar */
-        }
-    </style>
+    <link href="~/css/pages/index.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body class="bg-light">
     <div class="wrapper">
@@ -95,7 +24,18 @@
         <div class="card text-center">
             <div class="card-header"></div>
             <div class="card-body">
-                <form asp-action="Index" asp-controller="Journeys" method="GET">
+                @{
+                    string circleBtnClassName = "";
+                }
+                @if (TempData["errorMessage"] != null)
+                {
+                    circleBtnClassName = "alert-present";
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["errorMessage"]
+                    </div>
+                }
+                <form asp-action="Index" asp-controller="Journeys" method="GET" id="locationsForm">
+                    <button class="btn btn-outline-dark btn-circle @circleBtnClassName" id="swapButton" type="button"><i class="bi bi-arrow-down-up"></i></button>
                     <div class="inline-card mb-2">
                         <!-- Başlık -->
                         <div class="row">
@@ -112,7 +52,7 @@
                                 <i class="bi bi-geo-alt text-muted me-2"></i>
 
                                 <!-- Select -->
-                                <select class="origins-select form-select" name="originId" style="width: 75%;"></select>
+                                <select class="origins-select form-select" name="originId" id="originsSelect" style="width: 75%;"></select>
                             </div>
                         </div>
                     </div>
@@ -134,7 +74,7 @@
                                 <i class="bi bi-geo-alt text-muted me-2"></i>
 
                                 <!-- Select -->
-                                <select class="destinations-select form-select" name="destinationId" style="width: 75%;"></select>
+                                <select class="destinations-select form-select" name="destinationId" id="destinationsSelect" style="width: 75%;"></select>
                             </div>
                         </div>
                     </div>
@@ -156,14 +96,14 @@
                                         <i class="bi bi-calendar3 text-muted me-2"></i>
 
                                         <!-- Select -->
-                                        <input type="text" class="form-control datepicker" id="departureDateInput" name="departureDate" value="@DateTime.Today.ToString("dd-MM-yyyy")" />
+                                        <input type="text" class="form-control datepicker" id="departureDateInput" name="departureDate" value="@DateTime.Today.AddDays(1).ToString("dd-MM-yyyy")" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="d-flex flex-column">
-                                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="todayButton">Bugün</button>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="tomorrowButton">Yarın</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm mb-2 set-departure-day-btn" data-value="today">Bugün</button>
+                                    <button type="button" class="btn btn-secondary btn-sm set-departure-day-btn" data-value="tomorrow">Yarın</button>
                                 </div>
                             </div>
                         </div>
@@ -187,66 +127,10 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/lib/datepicker/datepicker.min.js"></script>
     <script src="~/lib/datepicker/i18n/datepicker.tr-tr.min.js"></script>
-    <script>
-                // In your Javascript (external .js resource or <script> tag)
-        $(document).ready(function() {
-            $('.datepicker').datepicker({
-                language:'tr-TR',
-                startDate: '1d',
-            });
-
-            // Sayfa yüklendiğinde tüm ürün listesini çek
-            $.ajax({
-                url: '@Url.Action("Get", "BusLocations")',
-                type: 'GET',
-                success: function (data) {
-                    // Select2'yi tüm liste ile doldur
-                    console.log(data)
-
-                    $('.origins-select').select2({
-                        data: data,
-                        // ajax: {
-                        //     url: '@Url.Action("Get", "BusLocations")', // Controller'daki action metodu
-                        //     dataType: 'json',
-                        //     delay: 250, // Kullanıcı yazmayı durdurduktan 250ms sonra istek gönder
-                        //     data: function (params) {
-                        //         return {
-                        //             term: params.term // Kullanıcının yazdığı anahtar kelime
-                        //         };
-                        //     },
-                        //     processResults: function (data) {
-                        //         console.log('processResults',data)
-                        //         return {
-                        //             results: data.results // Controller'dan dönen sonuçlar
-                        //         };
-                        //     },
-                        //     cache: true // İstekleri önbelleğe al
-                        // },
-                        // minimumInputLength: 3 // Arama için en az 3 karakter gerektir
-                    });
-
-                    $('.destinations-select').select2({
-                        data: data
-                    });
-                }
-            });
-
-            // Bugünün tarihini yazdır
-            $('#todayButton').click(function () {
-                const today = new Date();
-                $('#departureDateInput').datepicker('setDate', today);
-            });
-
-            // Yarının tarihini yazdır
-            $('#tomorrowButton').click(function () {
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1); // Yarının tarihini hesapla
-                $('#departureDateInput').datepicker('setDate', tomorrow);
-            });
-        });
-    </script>
+    <script src="~/js/pages/index.js" asp-append-version="true"></script>
 </body>
 </html>
 

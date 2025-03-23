@@ -22,6 +22,7 @@ namespace BusLocationsApp.Services.Concretes
             // Retrieve the current session from the session manager.
             var (sessionId, deviceId) = oBiletSessionManager.GetSession();
 
+            //Naming the if condition according to its purpose to increase readability.
             if (CheckSessionData(sessionId, deviceId))
             {
                 // Fetch a new session from the session API.

@@ -10,7 +10,7 @@ namespace BusLocationsApp.Services.Concretes
     {
         private readonly OBiletDistribusionApiOptions obiletOptions = options.Value;
 
-        public async Task<BusLocationsResponse> GetLocations(string? search = null)
+        public async Task<BusLocationsResponse> GetLocationsAsync(string? search = null)
         {
             var session = await oBiletSessionProvider.GetOrCreateSessionAsync();
 

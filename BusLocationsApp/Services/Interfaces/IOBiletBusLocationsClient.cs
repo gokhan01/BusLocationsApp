@@ -4,6 +4,6 @@ namespace BusLocationsApp.Services.Interfaces
 {
     public interface IOBiletBusLocationsClient
     {
-        Task<BusLocationsResponse> GetLocations(string? search = null);
+        Task<BusLocationsResponse> GetLocationsAsync(string? search = null);
     }
 }

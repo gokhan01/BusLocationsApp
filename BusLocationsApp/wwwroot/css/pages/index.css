@@ -1,0 +1,83 @@
+﻿.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.card {
+    width: 320pt;
+}
+
+.card-header {
+    background-color: #2F4EB4;
+    height: 40pt;
+}
+
+.card-body {
+    background-color: #F8F8F8;
+}
+
+.text-primary {
+    color: #2F4EB4 !important;
+}
+
+.btn-primary {
+    background-color: #2F4EB4 !important;
+}
+
+/* .inline-card {
+                        background-color: white;
+                        width: auto;
+                        height: 64pt;
+                        padding: 5pt;
+                        display: flex !important;
+                        align-items: center !important;
+                        } */
+
+.inline-card {
+    background-color: white;
+    width: auto;
+    height: 64pt;
+    padding: 5pt;
+}
+
+/* .select2-container--default .select2-selection--single {
+                        border: none;
+                        } */
+
+/* Select2 border'ını kaldır */
+.select2-container .select2-selection--single {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+    /* Select2 arrow (ok) ikonunu kaldır */
+    .select2-container .select2-selection--single .select2-selection__arrow {
+        display: none;
+    }
+
+/* Select2 dropdown arrow'ı kaldır */
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    display: none;
+}
+
+/* Input yazısını sola yasla */
+.select2-container .select2-selection--single .select2-selection__rendered {
+    text-align: left !important;
+    padding-left: 15px !important; /* İsteğe bağlı: Yazının sol boşluğunu ayarlar */
+}
+
+.btn-circle {
+    border-radius: 50%;
+    position: absolute;
+    top: 140px;
+    z-index: 999;
+    right: 30px;
+}
+
+.alert-present {
+    top: 215px;
+}
