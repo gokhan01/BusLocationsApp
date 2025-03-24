@@ -14,7 +14,7 @@ namespace BusLocationsApp.Helpers.Extensions
         /// <summary>
         /// Converts DateTime to string in the specified format
         /// </summary>
-        public static string ToFormattedString(this DateTime date, string format = "dd-MM-yyyy")
+        public static string ToFormattedString(this DateTime date, string format = DateTimeFormats.NumericDate)
         {
             return date.ToString(format, cultureInfo);
         }
@@ -22,7 +22,7 @@ namespace BusLocationsApp.Helpers.Extensions
         /// <summary>
         /// Converts DateTime to string in the specified format
         /// </summary>
-        public static string ToApiFormattedString(this DateTime date, string format = "yyyy-MM-dd")
+        public static string ToApiFormattedString(this DateTime date, string format = DateTimeFormats.ReverseNumericDate)
         {
             return date.ToString(format, cultureInfo);
         }
@@ -30,7 +30,7 @@ namespace BusLocationsApp.Helpers.Extensions
         /// <summary>
         /// Converts DateTime to string in the specified format
         /// </summary>
-        public static string ToHourString(this DateTime date, string format = "HH:mm")
+        public static string ToHourString(this DateTime date, string format = DateTimeFormats.HourDate)
         {
             return date.ToString(format);
         }
@@ -38,7 +38,7 @@ namespace BusLocationsApp.Helpers.Extensions
         /// <summary>
         /// Adds the specified number of days and returns a formatted string
         /// </summary>
-        public static string AddDaysFormatted(this DateTime date, int days, string format = "dd-MM-yyyy")
+        public static string AddDaysFormatted(this DateTime date, int days, string format = DateTimeFormats.NumericDate)
         {
             return date.AddDays(days).ToFormattedString(format);
         }

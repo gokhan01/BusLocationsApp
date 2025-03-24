@@ -1,4 +1,5 @@
-﻿using BusLocationsApp.Helpers.Extensions;
+﻿using BusLocationsApp.Helpers;
+using BusLocationsApp.Helpers.Extensions;
 using BusLocationsApp.Models;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Interfaces;
@@ -58,7 +59,7 @@ namespace BusLocationsApp.Controllers
 
             ViewBag.OriginLocation = journeys.data.FirstOrDefault()?.originLocation;
             ViewBag.DestinationLocation = journeys.data.FirstOrDefault()?.destinationLocation;
-            ViewBag.DepartureDate = _departureDate.ToFormattedString("d MMMM yyyy");
+            ViewBag.DepartureDate = _departureDate.ToFormattedString(DateTimeFormats.LongDate);
 
             return View(viewModel);
         }
