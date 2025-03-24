@@ -3,9 +3,9 @@
 namespace BusLocationsApp.Services.Concretes
 {
     /// <summary>
-    /// Provides functionality to manage and retrieve sessions.
-    /// Combines session retrieval logic and storage to ensure
-    /// consistent and reusable session management.
+    /// All requests made to obilet.com business API should be coded in the MVC application backend 
+    /// no client side requests should be made directly to obilet.com business api, 
+    /// any client side requests implemented should be made to the application backend. 
     /// </summary>
     public class OBiletSessionProvider(IOBiletSessionManager oBiletSessionManager, IOBiletSessionClient oBiletSessionClient) : IOBiletSessionProvider
     {
@@ -43,7 +43,7 @@ namespace BusLocationsApp.Services.Concretes
                     connection = new Models.Connection
                     {
                         ipAddress = "165.114.41.21",
-                        port = "8080"
+                        port = "5117"
                     }
                 });
 

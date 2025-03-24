@@ -1,4 +1,6 @@
 using BusLocationsApp.Helpers;
+using BusLocationsApp.Helpers.Extensions;
+using BusLocationsApp.Helpers.Middlewares;
 using BusLocationsApp.Models.Configuration;
 using BusLocationsApp.Services.Concretes;
 using BusLocationsApp.Services.Interfaces;
@@ -21,25 +23,28 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+AppSettings appSettings = new();
+OBiletDistribusionApiOptions obiletOptions = new();
+var obiletConfig = builder.Configuration.GetSection(nameof(OBiletDistribusionApiOptions));
+var appSettingsConfig = builder.Configuration.GetSection(nameof(AppSettings));
+
+obiletConfig.Bind(obiletOptions);
+appSettingsConfig.Bind(appSettings);
+
+//Options Pattern
+builder.Services.Configure<OBiletDistribusionApiOptions>(obiletConfig);
+builder.Services.Configure<AppSettings>(appSettingsConfig);
+
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[]
-    {
-        new CultureInfo("tr-TR")
-    };
+    var supportedCultures = appSettings.SupportedCultures.Select(sc => new CultureInfo(sc)).ToArray();
 
-    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(culture: "tr-TR", uiCulture: "tr-TR");
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(culture: appSettings.DefaultCulture, uiCulture: appSettings.DefaultCulture);
     //This is the culture the app supports for formatting numbers, dates, etc.
     options.SupportedCultures = supportedCultures;
     //This is the culture the app supports for UI strings
     options.SupportedUICultures = supportedCultures;
 });
-
-//Options Pattern
-OBiletDistribusionApiOptions obiletOptions = new();
-var obiletConfig = builder.Configuration.GetSection(nameof(OBiletDistribusionApiOptions));
-obiletConfig.Bind(obiletOptions);
-builder.Services.Configure<OBiletDistribusionApiOptions>(obiletConfig);
 
 // Add HttpClient for OBilet Distribusion API to the container.
 builder.Services.AddHttpClient(obiletOptions.ClientName, httpClient =>
@@ -68,6 +73,8 @@ builder.Services.AddScoped<IOBiletJourneysClient, OBiletJourneysClient>();
 
 var app = builder.Build();
 
+DatetimeExtensions.SetCultureInfo(appSettings.DefaultCulture);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -75,6 +82,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
