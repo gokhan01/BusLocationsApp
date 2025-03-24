@@ -74,6 +74,7 @@ builder.Services.AddScoped<IOBiletJourneysClient, OBiletJourneysClient>();
 var app = builder.Build();
 
 DatetimeExtensions.SetCultureInfo(appSettings.DefaultCulture);
+DecimalExtensions.SetCultureInfo(appSettings.DefaultCulture);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

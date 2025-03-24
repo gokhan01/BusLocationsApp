@@ -52,7 +52,7 @@ namespace BusLocationsApp.Controllers
                 Departure = x.journey.departure.ToHourString(),
                 Destination = x.journey.destination,
                 Origin = x.journey.origin,
-                OriginalPrice = x.journey.originalPrice.ToString("0.00"),
+                OriginalPrice = x.journey.originalPrice.ToDoubledString(),
                 Currency = x.journey.currency
             });
 

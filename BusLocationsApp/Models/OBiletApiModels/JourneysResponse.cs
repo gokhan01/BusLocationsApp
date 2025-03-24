@@ -113,7 +113,7 @@
         public DateTime arrival { get; set; }
         public string currency { get; set; }
         public string duration { get; set; }
-        public float originalPrice { get; set; }
+        public decimal originalPrice { get; set; }
         public float internetprice { get; set; }
         public float? providerinternetprice { get; set; }
         public object booking { get; set; }
