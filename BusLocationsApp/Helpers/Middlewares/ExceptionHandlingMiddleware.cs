@@ -1,6 +1,7 @@
 ﻿using BusLocationsApp.Models.ViewModels;
 using System.Net;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BusLocationsApp.Helpers.Middlewares
 {
@@ -31,7 +32,7 @@ namespace BusLocationsApp.Helpers.Middlewares
         {
             _logger.LogError(exception, "...");
 
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = Application.Json;
             var response = context.Response;
 
             var errorResponse = new ErrorResponse

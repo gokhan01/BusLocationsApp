@@ -24,7 +24,7 @@ namespace BusLocationsApp.Services.Concretes
             BaseRequest request = new()
             {
                 data = search,
-                date = DateTime.Today.ToApiFormattedString(),//todo:ekrandan mı alınacak incelenecek
+                date = DateTime.Today.ToApiFormattedString(),
                 deviceSession = new DeviceSession
                 {
                     deviceId = session.DeviceId,

@@ -20,7 +20,6 @@ namespace BusLocationsApp.Services.Concretes
         {
             var session = await oBiletSessionProvider.GetOrCreateSessionAsync();
 
-            //todo: baserequest için ortak model yaratma uygulanabilir.
             BaseRequest request = new()
             {
                 data = journeysRequest,
