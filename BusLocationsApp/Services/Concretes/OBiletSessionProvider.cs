@@ -1,5 +1,6 @@
-﻿using BusLocationsApp.Services.Interfaces;
-
+﻿using BusLocationsApp.Helpers.Utilities;
+using BusLocationsApp.Services.Interfaces;
+using UAParser;
 namespace BusLocationsApp.Services.Concretes
 {
     /// <summary>
@@ -7,7 +8,7 @@ namespace BusLocationsApp.Services.Concretes
     /// no client side requests should be made directly to obilet.com business api, 
     /// any client side requests implemented should be made to the application backend. 
     /// </summary>
-    public class OBiletSessionProvider(IOBiletSessionManager oBiletSessionManager, IOBiletSessionClient oBiletSessionClient) : IOBiletSessionProvider
+    public class OBiletSessionProvider(IOBiletSessionManager oBiletSessionManager, IOBiletSessionClient oBiletSessionClient, IBrowserInfoProvider browserInfoProvider, IClientInfoProvider clientInfoProvider) : IOBiletSessionProvider
     {
         /// <summary>
         /// Retrieves an existing session or creates a new one if none is available.
@@ -25,10 +26,12 @@ namespace BusLocationsApp.Services.Concretes
             //Naming the if condition according to its purpose to increase readability.
             if (CheckSessionData(sessionId, deviceId))
             {
+                var (browserName, browserVersion) = browserInfoProvider.GetBrowserInfo();
+                var (ipAddress, port) = clientInfoProvider.GetClientInfo();
+
                 // Fetch a new session from the session API.
                 var newSession = await oBiletSessionClient.GetSessionAsync(new Models.SessionRequest
                 {
-                    //todo:tarayıcı bilgileri httpcontext den alınabilir
                     type = 7,
                     application = new Models.ApplicationModel
                     {
@@ -37,13 +40,13 @@ namespace BusLocationsApp.Services.Concretes
                     },
                     browser = new Models.Browser
                     {
-                        version = "1.0.0.0",
-                        name = "Chrome"
+                        version = browserVersion,
+                        name = browserName
                     },
                     connection = new Models.Connection
                     {
-                        ipAddress = "165.114.41.21",
-                        port = "5117"
+                        ipAddress = ipAddress,
+                        port = port.ToString()
                     }
                 });
 
