@@ -1,6 +1,5 @@
 ﻿using BusLocationsApp.Helpers.Utilities;
 using BusLocationsApp.Services.Interfaces;
-using UAParser;
 namespace BusLocationsApp.Services.Concretes
 {
     /// <summary>
